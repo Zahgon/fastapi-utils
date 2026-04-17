@@ -36,32 +36,15 @@ class GUID(UUIDTypeDecorator):
 
     @no_type_check
     def load_dialect_impl(self, dialect):
-        if dialect.name == "postgresql":  # pragma: no cover
-            return dialect.type_descriptor(UUID())
-        else:
-            return dialect.type_descriptor(CHAR(32))
+        pass
 
     @no_type_check
     def process_bind_param(self, value, dialect):
-        if value is None:
-            return value
-        elif dialect.name == "postgresql":  # pragma: no cover
-            return str(value)
-        else:
-            if not isinstance(value, uuid.UUID):
-                return "%.32x" % uuid.UUID(value).int
-            else:
-                # hexstring
-                return "%.32x" % value.int
+        pass
 
     @no_type_check
     def process_result_value(self, value, dialect):
-        if value is None:
-            return value
-        else:
-            if not isinstance(value, uuid.UUID):  # pragma: no branch
-                value = uuid.UUID(value)
-            return value
+        pass
 
 
 def setup_guids_postgresql(engine: sa.engine.Engine) -> None:  # pragma: no cover
@@ -70,4 +53,4 @@ def setup_guids_postgresql(engine: sa.engine.Engine) -> None:  # pragma: no cove
 
     This query only needs to be executed once when the database is created
     """
-    engine.execute('create EXTENSION if not EXISTS "pgcrypto"')
+    pass

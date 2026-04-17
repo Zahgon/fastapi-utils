@@ -47,18 +47,7 @@ class APISettings(BaseSettings):
         If `self.disable_docs` is True, the various docs-related arguments are disabled, preventing your spec from being
         published.
         """
-        fastapi_kwargs: dict[str, Any] = {
-            "debug": self.debug,
-            "docs_url": self.docs_url,
-            "openapi_prefix": self.openapi_prefix,
-            "openapi_url": self.openapi_url,
-            "redoc_url": self.redoc_url,
-            "title": self.title,
-            "version": self.version,
-        }
-        if self.disable_docs:
-            fastapi_kwargs.update({"docs_url": None, "openapi_url": None, "redoc_url": None})
-        return fastapi_kwargs
+        pass
 
     if PYDANTIC_VERSION[0] == "2":
         model_config = SettingsConfigDict(env_prefix="api_", validate_assignment=True)

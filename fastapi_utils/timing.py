@@ -46,11 +46,7 @@ def add_timing_middleware(
 
     @app.middleware("http")
     async def timing_middleware(request: Request, call_next: RequestResponseEndpoint) -> Response:
-        metric_name = metric_namer(request.scope)
-        with _TimingStats(metric_name, record=record, exclude=exclude) as timer:
-            setattr(request.state, TIMER_ATTRIBUTE, timer)
-            response = await call_next(request)
-        return response
+        pass
 
 
 def record_timing(request: Request, note: str | None = None) -> None:
@@ -116,7 +112,7 @@ class _TimingStats:
 
     @property
     def cpu_time(self) -> float:
-        return self.end_cpu_time - self.start_cpu_time
+        pass
 
     def __enter__(self) -> _TimingStats:
         self.start()

@@ -19,7 +19,7 @@ class StrEnum(str, Enum):
 
         See https://docs.python.org/3/library/enum.html#using-automatic-values for reference
         """
-        return name
+        pass
 
 
 class CamelStrEnum(str, Enum):
@@ -34,4 +34,4 @@ class CamelStrEnum(str, Enum):
 
         See https://docs.python.org/3/library/enum.html#using-automatic-values for reference
         """
-        return snake2camel(name, start_lower=True)
+        pass

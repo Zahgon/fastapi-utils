@@ -77,42 +77,6 @@ def repeat_every(
         """
         Converts the decorated function into a repeated, periodically-called version of itself.
         """
-
-        @wraps(func)
-        async def wrapped() -> None:
-            async def loop() -> None:
-                if wait_first is not None:
-                    await asyncio.sleep(wait_first)
-
-                repetitions = 0
-                while max_repetitions is None or repetitions < max_repetitions:
-                    try:
-                        await _handle_func(func)
-
-                    except Exception as exc:
-                        if logger is not None:
-                            warnings.warn(
-                                "'logger' is to be deprecated in favor of 'on_exception' in the 1.0 release.",
-                                DeprecationWarning,
-                            )
-                            formatted_exception = "".join(format_exception(type(exc), exc, exc.__traceback__))
-                            logger.error(formatted_exception)
-                        if raise_exceptions:
-                            warnings.warn(
-                                "'raise_exceptions' is to be deprecated in favor of 'on_exception' in the 1.0 release.",
-                                DeprecationWarning,
-                            )
-                            raise exc
-                        await _handle_exc(exc, on_exception)
-
-                    repetitions += 1
-                    await asyncio.sleep(seconds)
-
-                if on_complete:
-                    await _handle_func(on_complete)
-
-            asyncio.ensure_future(loop())
-
-        return wrapped
+        pass
 
     return decorator

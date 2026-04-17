@@ -36,36 +36,27 @@ class FastAPISessionMaker:
         """
         Returns a lazily-cached sqlalchemy engine for the instance's database_uri.
         """
-        engine = self._cached_engine
-        if engine is None:
-            engine = self.get_new_engine()
-            self._cached_engine = engine
-        return engine
+        pass
 
     @property
     def cached_sessionmaker(self) -> sa.orm.sessionmaker:
         """
         Returns a lazily-cached sqlalchemy sessionmaker using the instance's (lazily-cached) engine.
         """
-        sessionmaker = self._cached_sessionmaker
-        if sessionmaker is None:
-            sessionmaker = self.get_new_sessionmaker(self.cached_engine)
-            self._cached_sessionmaker = sessionmaker
-        return sessionmaker
+        pass
 
     def get_new_engine(self) -> sa.engine.Engine:
         """
         Returns a new sqlalchemy engine using the instance's database_uri.
         """
-        return get_engine(self.database_uri)
+        pass
 
     def get_new_sessionmaker(self, engine: sa.engine.Engine | None) -> sa.orm.sessionmaker:
         """
         Returns a new sessionmaker for the provided sqlalchemy engine. If no engine is provided, the
         instance's (lazily-cached) engine is used.
         """
-        engine = engine or self.cached_engine
-        return get_sessionmaker_for_engine(engine)
+        pass
 
     def get_db(self) -> Iterator[Session]:
         """
@@ -99,8 +90,7 @@ class FastAPISessionMaker:
         After calling this method, the next time you try to use the cached engine or sessionmaker,
         new ones will be created.
         """
-        self._cached_engine = None
-        self._cached_sessionmaker = None
+        pass
 
 
 def get_engine(uri: str) -> sa.engine.Engine:

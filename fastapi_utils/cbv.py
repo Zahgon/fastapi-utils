@@ -43,7 +43,7 @@ def cbv(router: APIRouter, *urls: str) -> Callable[[Type[T]], Type[T]]:
 
     def decorator(cls: Type[T]) -> Type[T]:
         # Define cls as cbv class exclusively when using the decorator
-        return _cbv(router, cls, *urls)
+        pass
 
     return decorator
 
@@ -87,14 +87,7 @@ def _init_cbv(cls: Type[Any], instance: Any = None) -> None:
         new_signature = old_signature.replace(parameters=new_parameters)
 
     def new_init(self: Any, *args: Any, **kwargs: Any) -> None:
-        for dep_name in dependency_names:
-            dep_value = kwargs.pop(dep_name)
-            setattr(self, dep_name, dep_value)
-        if instance and not hasattr(cls, INCLUDE_INIT_PARAMS_KEY):
-            self.__class__ = instance.__class__
-            self.__dict__ = instance.__dict__
-        else:
-            old_init(self, *args, **kwargs)
+        pass
 
     setattr(cls, "__signature__", new_signature)
     setattr(cls, "__init__", new_init)
